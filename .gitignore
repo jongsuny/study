@@ -1,0 +1,48 @@
+# Temporary files #
+###################
+*.swp
+*.swo
+*~
+# build & test files#
+############
+build
+test
+test*
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+*.json
+
+# Eclipse            #
+######################
+.classpath
+.project
+.settings/
+
+# Intellij           #
+######################
+.idea/
+*.iml
+*.iws
+
+# Mac                #
+######################
+.DS_Store
+
+# Maven              #
+######################
+logs/
+target/

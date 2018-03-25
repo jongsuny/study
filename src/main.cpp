@@ -1,6 +1,9 @@
 #include "jcc.hpp"
+#include "pugixml.hpp"
+#include "parser.hpp"
 using namespace std;
 using namespace jcc;
+using namespace jcc::parser;
 void print_help() {
 	cout <<"Jingdong JXML Compiler, version v" << VERSION<< endl;
 	cout <<"Usage: ./jcc [-d] [-o OUTPUT] [-xc XComponentDefine] [-om XComponentDefine] <FILES... | -s <SINGLE_FILE>" << endl;
@@ -14,64 +17,13 @@ void print_help() {
 	cout<<"\t'<wxml_cout> <<wxml_path_i> <xcompo_cout> <xcompos...> ...>"<<endl;
 	cout<<"\texample :" << " '2 /page/index.wxml 2 mytag mygame /page/log.wxml 1 mytag'" <<endl;
 }
-void parse_config(int argc, char **argv, jcc_config *config) {
-	int ch;
-    printf("\n\n");
-    printf("optind:%d，opterr：%d\n",optind,opterr);
-    char *string = "a::b:c:d";
-    printf("-----------parse config---------------\n");
-	while ((ch = getopt(argc, argv, string)) != -1)
-	{
-		printf("opt = %c\t\t", ch);
-        printf("optarg = %s\t\t",optarg);
-        printf("optind = %d\t\t",optind);
-        printf("argv[optind] = %s\n",argv[optind]);
-	 //   	switch (ch) 
-		// {
-  //      		case 'a':
-	 //               printf("HAVE option: -a\n\n");   
-	 //               break;
-  //      		case 'b':
-	 //               printf("HAVE option: -b\n"); 
-	 //               printf("The argument of -b is %s\n\n", optarg);
-	 //               break;
-  //      		case 'c':
-	 //               printf("HAVE option: -c\n");
-	 //               printf("The argument of -c is %s\n\n", optarg);
-	 //               break;
-  //      		case 'd':
-	 //           	config->debug = true;
-	 //            break;
-  //     		case 'o':
-	 //            printf("HAVE option: -o\n");
-	 //            printf("The argument of -o is %s\n\n", optarg);
-	 //          break;
-  // 			case '?':
-	 //               printf("Unknown option: %c\n",(char)optopt);
-	 //               break;
-  //      		default:
-  //      			printf("Unknown option: %c found!\n",(char)optopt);
-	 //    }
-	}
-}
-
-/* Returns number of consumed options. */
-int parseOptions(int argc, char **argv, jcc_config *config) {
-	// int opt;
- //    char *string = "a::b:c:d";
- //    while ((opt = getopt(argc, argv, string))!= -1)
- //    {  
- //        printf("opt = %c\t\t", opt);
- //        printf("optarg = %s\t\t",optarg);
- //        printf("optind = %d\t\t",optind);
- //        printf("argv[optind] = %s\n",argv[optind]);
- //    }
-    int i;
+int parse_config(int argc, char **argv, jcc_config *config) {
+   	int i = 0;
     int lastarg;
     int exit_status = 1;
     int idx = 0;
     config->count = 0;
-
+    cout << "argc:" << argc <<endl;
     for (i = 1; i < argc; i++) {
         lastarg = (i == (argc-1));
 
@@ -98,7 +50,6 @@ int parseOptions(int argc, char **argv, jcc_config *config) {
             }
         }
     }
-
     return i;
 
 invalid:
@@ -113,26 +64,49 @@ void print_config(jcc_config *config) {
 	cout<<"==================================" <<endl;
 	cout<<"config debug print" <<endl;
 	cout<<"debug: "<< boolalpha<< config->debug <<endl;
-	cout<<"out: "<< config->out <<endl;
+	if(config->out == NULL) {
+		cout<<"out: stdout " <<endl;
+	} else {
+		cout<<"out: "<< config->out <<endl;	
+	}
+	cout<<"input file count: "<< config->count <<endl;	
 	if(config->count > 0) {
 		for(int idx = 0; idx < config->count; idx++) {
 			cout <<"input[" << idx <<"]: "<< config->input[idx] <<endl;		
 		}
 	}
 }
+void pugi_test() {
+	pugi::xml_document doc;  
+	if(!doc.load_buffer("",0))  
+  
+	pugi::xml_document doc;  
+	if (!doc.load_file("test.xml", pugi::parse_default, pugi::encoding_utf8))//加载xml文件，如果是新建，用load_buffer  
+	{    
+	  std::cout<<"nothing Loading!"<<std::endl;    
+	}  
+	pugi::xml_node rootNode = doc.child("root");//这里可以让指针指向已有的节点，假如有root节点  
+	pugi::xml_node childNode;         
+	childNode=rootNode.append_child("ddddddd");  
+	childNode.append_attribute("444");  
+	childNode.append_attribute("555");  
 
+	childNode=rootNode.append_child("44444");  
+	childNode.set_name("rrrrr");  
+	childNode.append_child(pugi::node_pcdata).set_value("777777777777777777");  
+	rootNode.insert_child_after("safe",childNode);//在节点之后插 入   
+
+	doc.print(std::cout);//打印doc  
+	doc.save_file("test_out.xml");//保存文件 
+}
 int main(int argc, char ** argv) {
-	xml_node_type node_type;
 	jcc_config config, *config_ptr;
+	enum jcc_node_type type = node_element;
 	config_ptr = &config;
-	parseOptions(argc, argv, config_ptr);
-	//cout<<"test" <<endl;
-	//cout<<node_type <<endl;
-
-    //print_help();
-
-    // parse_config(argc, argv, config_ptr);
-    
+	memset(&config,0, sizeof(jcc_config));
+	parse_config(argc, argv, config_ptr);
     print_config(config_ptr);
+    pugi_test();
+    cout << type << endl;
 	return 0;
 }

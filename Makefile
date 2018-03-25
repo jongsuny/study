@@ -1,14 +1,28 @@
 # env related
-CC=g++
+CC						=g++
+BUILD					=build
 
-BUILD_NAME=jcc
+EXECUTABLE				=$(BUILD)/jcc
 
-BUILD_NAME_DEBUG=jcc-debug	
-LIB=/usr/local/lib/pugixml-1.8 
-INC 	=-I /usr/local/include/pugixml-1.8
-INC 	+= -I include
-all:	jcc
-jcc: main.cpp
-	$(CC) -L $(LIB) $(INC) -o $(BUILD_NAME) main.cpp
+BUILD_NAME 				=jcc
+CXXFLAGS				= -g
+BUILD_NAME_DEBUG		=jcc-debug	
+#LIB 					=/usr/local/lib/pugixml-1.8 
+#INC 					=-I /usr/local/include/pugixml-1.8
+INC 					+= -I src/include
+INC 					+= -I pugixml
+LINK					=-lpugixml
+SOURCES					=src/main.cpp pugixml/pugixml.cpp
+OBJECTS					=$(SOURCES:%=$(BUILD)/%.o)
+
+all:	$(EXECUTABLE)
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(CXXFLAGS) $(OBJECTS) $(LDFLAGS) -o $@
+
+$(BUILD)/%.o: %
+	@mkdir -p $(dir $@)
+	$(CC) $(CXXFLAGS) $(INC)   -c $<  -o $@
+
 clean:
-	rm -f $(BUILD_NAME) $(BUILD_NAME_DEBUG) *.o
+	rm -rf $(BUILD)
+.PHONY: all clean
