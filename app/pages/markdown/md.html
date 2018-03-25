@@ -1,0 +1,21 @@
+<template class="task-template">
+  <section id="markdown-section" class="section js-section u-category-windows hidden">
+    <div class="container full-height">
+      <div class="row full-height">
+        <div class="col-xs-6 full-height">
+          <div class="demo-control"><a href="#" class="source-clear">clear</a><a id="permalink" href="" title="Share this snippet as link"><strong>permalink</strong></a></div>
+          <textarea id="markdownEditor" class="source full-height"></textarea>
+        </div>
+        <section class="col-xs-6 full-height">
+          <div class="demo-control"><a href="#" data-result-as="html">html</a><a href="#" data-result-as="src">source</a></div>
+          <div id="markdownPreview" class="result-html full-height"></div>
+          <pre class="hljs result-src full-height"><code class="result-src-content full-height"></code></pre>
+        </section>
+      </div>
+    </div>
+    <script type="text/javascript">
+      require('./app/main/md')
+    </script>
+
+  </section>
+</template>
