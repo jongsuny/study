@@ -23,6 +23,7 @@
     "jquery": "3.3.1",
     "bootstrap": "3.3.5",
     "js-beautify": "",
-    "sweet-data": ""
+    "sweet-data": "",
+    "jr-qrcode": ""
   }
 }
