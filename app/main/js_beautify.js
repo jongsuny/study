@@ -1,5 +1,5 @@
 // node.js, "classic" way:
-const beautify = require('js-beautify').html_beautify;
+const beautify = require('js-beautify').js_beautify;
 
 
 const jsOrigin = document.getElementById('jsOrigin');

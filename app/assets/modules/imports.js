@@ -1,3 +1,4 @@
+
 const links = document.querySelectorAll('link[rel="import"]')
 
 // Import and add each page to the DOM
@@ -7,6 +8,11 @@ Array.prototype.forEach.call(links, (link) => {
   if (link.href.match('about.html')) {
     document.querySelector('body').appendChild(clone)
   } else {
-    document.querySelector('.content').appendChild(clone)
+  	if(link.type == "nav") {
+  		document.querySelector('#main-nav').appendChild(clone);
+  	} else {
+    	document.querySelector('.content').appendChild(clone)  		
+  	}
+
   }
 })

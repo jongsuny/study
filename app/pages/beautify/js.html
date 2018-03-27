@@ -1,0 +1,21 @@
+<template class="task-template">
+  <section id="js-beautify-section" class="section js-section u-category-windows hidden">
+    <div class="container full-height">
+      <div class="row full-height">
+        <div class="col-xs-12 full-height">
+          <div class="demo-control"><a href="#" class="source-clear">clear</a><a id="permalink" href="" title="Share this snippet as link"><strong>permalink</strong></a></div>
+          <textarea id="jsOrigin" class="source full-height"></textarea>
+        </div>
+      </div>
+      <div class="row full-height">
+        <section class="col-xs-12 full-height">
+          <textarea id="jsBeautifiedView" class="result-html full-height"></textarea>
+        </section>
+      </div>
+    </div>
+    <script type="text/javascript">
+      require('./app/main/js_beautify')
+    </script>
+
+  </section>
+</template>

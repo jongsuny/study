@@ -1,11 +1,11 @@
 // node.js, "classic" way:
-const cssbeautify = require('js-beautify').css_beautify;
+const htmlBeautify = require('js-beautify').html_beautify;
 
-const cssOrigin = document.getElementById('cssOrigin');
-const previewDiv = document.getElementById('cssBeautifiedView');
+const htmlOrigin = document.getElementById('htmlOrigin');
+const previewDiv = document.getElementById('htmlBeautifiedView');
 document.body.addEventListener('click', (event) => {
     console.log("test")
-    const pretty = cssbeautify(cssOrigin.value)
+    const pretty = htmlBeautify(htmlOrigin.value)
     console.log(pretty)
     previewDiv.value = pretty ;
 })

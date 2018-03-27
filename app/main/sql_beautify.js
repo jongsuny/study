@@ -1,11 +1,11 @@
 // node.js, "classic" way:
-const cssbeautify = require('js-beautify').css_beautify;
+var sd = require('sweet-data');
 
-const cssOrigin = document.getElementById('cssOrigin');
-const previewDiv = document.getElementById('cssBeautifiedView');
+const sqlOrigin = document.getElementById('sqlOrigin');
+const previewDiv = document.getElementById('sqlBeautifiedView');
 document.body.addEventListener('click', (event) => {
     console.log("test")
-    const pretty = cssbeautify(cssOrigin.value)
+    const pretty = sd.SweetData.sql(sqlOrigin.value);
     console.log(pretty)
     previewDiv.value = pretty ;
 })

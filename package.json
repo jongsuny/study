@@ -18,9 +18,11 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "~1.8.2",
+    "electron-settings": "^3.0.7",
     "markdown-it": "8.4.1",
     "jquery": "3.3.1",
     "bootstrap": "3.3.5",
-    "js-beautify": ""
+    "js-beautify": "",
+    "sweet-data": ""
   }
 }
