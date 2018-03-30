@@ -12,7 +12,10 @@ BUILD_NAME_DEBUG		=jcc-debug
 INC 					+= -I src/include
 INC 					+= -I pugixml
 LINK					=-lpugixml
-SOURCES					=src/main.cpp pugixml/pugixml.cpp
+#SOURCES					= src/commons/file_operator.cpp src/main.cpp pugixml/pugixml.cpp 
+SOURCES					= src/main.cpp
+SOURCES					+= src/commons/jcc_io.cpp
+SOURCES					+= pugixml/pugixml.cpp
 OBJECTS					=$(SOURCES:%=$(BUILD)/%.o)
 
 all:	$(EXECUTABLE)
@@ -25,4 +28,8 @@ $(BUILD)/%.o: %
 
 clean:
 	rm -rf $(BUILD)
+run-help:
+	./build/jcc -h
+run:
+	./build/jcc 
 .PHONY: all clean

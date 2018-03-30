@@ -1,6 +1,7 @@
 #include "jcc.hpp"
 #include "pugixml.hpp"
 #include "parser.hpp"
+#include "path.hpp"
 using namespace std;
 using namespace jcc;
 using namespace jcc::parser;
@@ -78,10 +79,7 @@ void print_config(jcc_config *config) {
 }
 void pugi_test() {
 	pugi::xml_document doc;  
-	if(!doc.load_buffer("",0))  
-  
-	pugi::xml_document doc;  
-	if (!doc.load_file("test.xml", pugi::parse_default, pugi::encoding_utf8))//加载xml文件，如果是新建，用load_buffer  
+	if (!doc.load_file("/Users/jinjinzhe/jingdong/docs/smallapp/projects/jcc/cart.xml", pugi::parse_full, pugi::encoding_utf8))//加载xml文件，如果是新建，用load_buffer  
 	{    
 	  std::cout<<"nothing Loading!"<<std::endl;    
 	}  
@@ -99,6 +97,8 @@ void pugi_test() {
 	doc.print(std::cout);//打印doc  
 	doc.save_file("test_out.xml");//保存文件 
 }
+
+
 int main(int argc, char ** argv) {
 	jcc_config config, *config_ptr;
 	enum jcc_node_type type = node_element;
@@ -108,5 +108,19 @@ int main(int argc, char ** argv) {
     print_config(config_ptr);
     pugi_test();
     cout << type << endl;
+	jcc_io io;
+	size_t length;
+	jcc_parse_status status = io.open("/Users/jinjinzhe/jingdong/docs/smallapp/projects/jcc/cart.xml", "rb");
+	cout<<io.size(length)<<",szie:"<<length<<endl;
+	jcc_buffer buffer;
+	io.read(&buffer, length);
+	cout<<"contents:"<<buffer.data<<endl;
+	cout<<"filename:"<<io.getFileName()<<endl;
+	Path p(io.getFileName());
+	cout<<p.extension()<<endl;
+	cout<<p.up()<<endl;
+	
+	Path pa("test");
+	cout<<pa.separator<<endl;
 	return 0;
 }

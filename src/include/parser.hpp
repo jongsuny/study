@@ -19,14 +19,13 @@ namespace jcc {
 
 		// Forward declarations
 		struct xml_attribute_struct;
-		typedef struct jxx_node {
+		typedef struct jcc_node {
 			int line_num;
 			int col_num;
 			char *origin_name;
-			jxx_node *parent;
-			jxx_node *next_sibling;
-
-		};
+			jcc_node *parent;
+			jcc_node *next_sibling;
+		} jcc_node;
 
 		class xml_node_iterator;
 		class xml_attribute_iterator;
