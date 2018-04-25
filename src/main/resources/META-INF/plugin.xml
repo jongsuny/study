@@ -1,0 +1,68 @@
+<idea-plugin>
+    <id>com.jongsuny.idea.touchbar-plugin</id>
+    <name>Plugin display name here</name>
+    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+
+    <description><![CDATA[
+    Enter short description for your plugin here.<br>
+    <em>most HTML tags may be used</em>
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+    <depends>com.intellij.modules.lang</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable groupId="appearance"
+                                 parentId="preferences.customizations"
+                                 instance="com.jongsuny.idea.setting.TouchBarConfigurable"
+                                 id="preferences.intellij-touch"/>
+        <projectService serviceImplementation="com.jongsuny.idea.gui.TouchBar"/>
+        <customizableActionGroupProvider
+                implementation="com.jongsuny.idea.setting.TouchBarCustomizableActionGroupProvider"
+        />
+        <applicationConfigurable instance="com.jongsuny.idea.gui.SettingsGui"/>
+        <applicationService serviceInterface="com.jongsuny.idea.setting.FormatForm"
+                            serviceImplementation="com.jongsuny.idea.setting.Settings"/>
+    </extensions>
+
+    <actions>
+
+    </actions>
+    <project-components>
+        <component>
+            <implementation-class>com.jongsuny.idea.gui.TouchBarProjectComponent</implementation-class>
+        </component>
+    </project-components>
+
+    <application-components>
+        <!-- Add your application components here -->
+        <component>
+            <implementation-class>com.jongsuny.idea.component.MyComponent</implementation-class>
+        </component>
+    </application-components>
+
+    <actions>
+        <group id="dk.lost_world.intellij_touch.TouchBar">
+            <reference id="OpenFile"/>
+        </group>
+        <group id="TouchBar actions">
+            <!--<action id="TouchBar.RunStop" class="dk.lost_world.intellij_touch.Actions.RunStopAction" text="Run/Stop" />-->
+        </group>
+        <action id="com.jongsuny.idea.action.TestAction"
+                class="com.jongsuny.idea.action.TestAction"
+                text="Say Hello!">
+            <add-to-group group-id="WindowMenu" anchor="first"/>
+        </action>
+        <!-- Add your actions here -->
+        <action id="com.jongsuny.idea.action.TestAction2"
+                class="com.jongsuny.idea.action.TestAction"
+                text="com.jongsuny.idea.action.TestAction">
+            <add-to-group group-id="MainMenu" anchor="after" relative-to-action="WindowMenu"/>
+        </action>
+    </actions>
+
+
+</idea-plugin>
